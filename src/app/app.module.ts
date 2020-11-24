@@ -1,34 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, APP_ROUTES } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FotosComponent } from './components/fotos/fotos.component';
 import { CargaComponent } from './components/carga/carga.component';
 
-//Firebase
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-//import { AngularFireStorageModule } from 'angularfire2/';
-//import { AngularFireAuthModule } from '@angular/fire/auth';
+import { CargaImagenesService } from './services/carga-imagenes.service';
+import { environment } from '../environments/environment';
 
-import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     FotosComponent,
-    CargaComponent
+    CargaComponent,
+    NgDropFilesDirective
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireStorageModule, 
-    AppRoutingModule
+    AppRoutingModule,
+    APP_ROUTES,
+    AngularFireModule.initializeApp(environment),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
-  providers: [],
+  providers: [
+    CargaImagenesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
